@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NoteEditor.Data.InMemory\NoteEditor.Data.InMemory.csproj" />
+    <ProjectReference Include="..\NoteEditor.Data.Interfaces\NoteEditor.Data.Interfaces.csproj" />
+    <ProjectReference Include="..\NoteEditor.Data.SqlServer\NoteEditor.Data.SqlServer.csproj" />
+    <ProjectReference Include="..\NoteEditor.Domain\NoteEditor.Domain.csproj" />
+    <ProjectReference Include="..\NoteEditor.Services\NoteEditor.Services.csproj" />
+  </ItemGroup>
+
+</Project>
