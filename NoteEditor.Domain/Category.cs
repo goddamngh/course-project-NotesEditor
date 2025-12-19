@@ -12,18 +12,21 @@ namespace NoteEditor.Domain
         public Guid Id { get; set; }
         public string Name { get; set; }
         public Color Color { get; set; }
+        public User User { get; set; }
 
-        public Category()
+        public Category(User user)
         {
             Id = Guid.NewGuid();
             Name = string.Empty;
             Color = Color.White;
+            User = user;
         }
-        public Category(Guid id, string name, Color color)
+        public Category(Guid id, string name, Color color, User user)
         {
             Id = id;
             Name = name;
             Color = color;
+            User = user;
         }
     }
 }

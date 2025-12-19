@@ -5,11 +5,160 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NotesEditor.UI"
         mc:Ignorable="d"
+        xmlns:converters="clr-namespace:NoteEditor.UI.Converters"
         
         Title="NoteEditor.MainWindow"
         Style="{StaticResource StyleWindow}"
-        WindowStartupLocation="CenterScreen">
-    <Grid>
+        WindowState="Maximized">
 
+    <Window.Resources>
+        <converters:DrawingToMediaColorConverter x:Key="ColorConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Grid.ColumnSpan="4" 
+                   Text="Все заметки:"/>
+
+        <DataGrid Grid.Row="1" Grid.Column="0" 
+                  Grid.ColumnSpan="3" Grid.RowSpan="14"
+                  x:Name="MainList"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  Background="White"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="True"
+                  CanUserResizeRows="False"
+                  CanUserSortColumns="True"
+                  RowHeaderWidth="0"
+                  HorizontalAlignment="Center"
+                  SelectionChanged="MainList_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Дата создания"
+                                    Binding="{Binding CreationDate}" 
+                                    Width="Auto"/>
+                <DataGridTextColumn Header="Название" 
+                                    Binding="{Binding Name}"
+                                    Width="*"
+                                    >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Категория" 
+                                    Binding="{Binding Category.Name}"
+                                    Width="Auto">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Цвет" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Rectangle Width="Auto" Height="Auto" Margin="2" ToolTip="{Binding Category.Color.Name}">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{Binding Category.Color, 
+                                                     Converter={StaticResource ColorConverter}}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <TextBlock Grid.Column="3" Grid.Row="1"
+                   Text="Фильтрация по названию:"
+                   Margin="10,10,10,0"/>
+        <TextBox Grid.Column="3" Grid.Row="2"
+                 x:Name="FindNoteTextBox"
+                 Margin="10,5,10,10"/>
+
+        <TextBlock Grid.Column="3" Grid.Row="4"
+                   Text="Фильтрация по категориям:"
+                   Margin="10,10,10,0"/>
+        <ComboBox Grid.Column="3" Grid.Row="5"
+          x:Name="CategoryFilterComboBox">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="15" 
+                           Height="15" 
+                           Margin="0,0,5,0"
+                           Stroke="Black"
+                           StrokeThickness="1">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding Color, 
+                                                 Converter={StaticResource ColorConverter},
+                                                 FallbackValue=Transparent}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Text="{Binding Name, FallbackValue=Все}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Grid.Column="3" Grid.Row="6"
+                x:Name="FilterNoteButton"
+                Content="Применить фильтрацию"
+                Click="FilterNoteButton_Click"/>
+
+        <Button Grid.Column="3" Grid.Row="8"
+                x:Name="ShowNoteButton"
+                Content="Просмотреть заметку"
+                Click="ShowNoteButton_Click"
+                IsEnabled="False"/>
+        <Button Grid.Column="3" Grid.Row="9"
+                x:Name="ChangeNoteButton"
+                Content="Редактировать заметку"
+                Click="ChangeNoteButton_Click"
+                IsEnabled="False"/>
+
+        <Button Grid.Column="3" Grid.Row="11"
+                x:Name="AddNoteButton"
+                Content="Добавить заметку"
+                Click="AddNoteButton_Click"/>
+        <Button Grid.Column="3" Grid.Row="12"
+                x:Name="DeleteNoteButton"
+                Content="Удалить заметку"
+                Click="DeleteNoteButton_Click"
+                IsEnabled="False"/>
+
+        <Button Grid.Column="3" Grid.Row="14"
+                x:Name="AccountButton"
+                Content="Аккаунт"
+                Click="AccountButton_Click"/>
     </Grid>
 </Window>

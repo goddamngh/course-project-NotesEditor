@@ -18,7 +18,7 @@ namespace NoteEditor.Domain
         {
             Id = Guid.NewGuid();
             Username = string.Empty;
-            Password = string.Empty;
+            Password = "0";
             IsVip = false;
             RegistrationDate = DateTime.Now;
         }

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NoteEditor.Data.InMemory\NoteEditor.Data.InMemory.csproj" />
     <ProjectReference Include="..\NoteEditor.Data.Interfaces\NoteEditor.Data.Interfaces.csproj" />
     <ProjectReference Include="..\NoteEditor.Data.SqlServer\NoteEditor.Data.SqlServer.csproj" />

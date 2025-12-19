@@ -4,14 +4,13 @@
     <Style TargetType="{x:Type Window}" x:Key="StyleWindow">
         <Setter Property="FontFamily"  Value="Courier New"/>
         <Setter Property="Background"  Value="DarkGray"/>
-        <Setter Property="Height"  Value="750"/>
-        <Setter Property="Width"  Value="1200"/>
-        <Setter Property="FontSize"  Value="18"/>
+        <Setter Property="FontSize"  Value="19"/>
     </Style>
 
     <!-- Стиль для всех датагридов -->
     <Style TargetType="{x:Type DataGrid}">
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Background" Value="WhiteSmoke"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="IBeam"/>
@@ -21,10 +20,10 @@
 
     <!-- Стиль для всех текстбоксов -->
     <Style TargetType="TextBox">
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="Margin" Value="10"/>
         <Setter Property="BorderBrush"  Value="Black"/>
         <Setter Property="VerticalContentAlignment"  Value="Center"/>
-        <Setter Property="Text"  Value="-"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="IBeam"/>
@@ -34,8 +33,10 @@
 
     <!-- Стиль для всех комбобоксов -->
     <Style TargetType="ComboBox">
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="Margin" Value="10"/>
         <Setter Property="BorderBrush"  Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
@@ -45,7 +46,8 @@
 
     <!-- Стиль для всех листбоксов -->
     <Style TargetType="ListBox">
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="Margin" Value="10"/>
         <Setter Property="BorderBrush"  Value="Black"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
@@ -56,7 +58,7 @@
 
     <!-- Стиль для всех текстблоков -->
     <Style TargetType="TextBlock">
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Margin" Value="10"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -66,7 +68,7 @@
     <Style TargetType="Button">
         <Setter Property="Height"  Value="Auto"/>
         <Setter Property="Width"  Value="Auto"/>
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Margin" Value="10"/>
         <Setter Property="BorderBrush"  Value="Black"/>
         <Setter Property="Background" Value="LightGray"/>
         <Style.Triggers>

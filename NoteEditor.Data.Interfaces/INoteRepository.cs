@@ -7,5 +7,8 @@ using NoteEditor.Domain;
 
 namespace NoteEditor.Data.Interfaces
 {
-    public interface INoteRepository : IBaseRepository<Note> { }
+    public interface INoteRepository : IBaseRepository<Note>
+    {
+        List<Note> GetAll(NoteFilter filter);
+    }
 }

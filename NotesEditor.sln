@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36127.28 d17.14
+VisualStudioVersion = 17.14.36127.28
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesEditor.UI", "NotesEditor.UI\NotesEditor.UI.csproj", "{A1261B25-4B74-4AFE-A686-BC3CF8855618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteEditor.UI", "NotesEditor.UI\NoteEditor.UI.csproj", "{A1261B25-4B74-4AFE-A686-BC3CF8855618}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteEditor.Domain", "NoteEditor.Domain\NoteEditor.Domain.csproj", "{2F698CB1-5C51-4DBC-A92C-79988B9EFDB0}"
 EndProject

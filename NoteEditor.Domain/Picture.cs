@@ -13,10 +13,10 @@ namespace NoteEditor.Domain
         public byte[] Data { get; set; }
         public int Index { get; set; }
         public Note Note { get; set; }
-        public Picture(Note note)
+        public Picture(Note note, string path)
         {
             Id = Guid.NewGuid();
-            Data = File.ReadAllBytes("BaseImage.png");
+            Data = File.ReadAllBytes(path);
             Index = 0;
             Note = note;
         }
