@@ -13,10 +13,17 @@ namespace NoteEditor.Domain
         public Category? Category { get; set; }
         public User User { get; set; }
         public DateTime CreationDate { get; set; }
+        public Guid UserId { get; set; }
+        public Guid? CategoryId { get; set; }
+
+        //конструктор для EF
+        protected Note() { }
+
         public Note(User user)
         {
             Id = Guid.NewGuid();
             User = user;
+            UserId = user.Id;
             CreationDate = DateTime.Now;
         }
     }

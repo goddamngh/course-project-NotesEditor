@@ -13,6 +13,10 @@ namespace NoteEditor.Domain
         public byte[] Data { get; set; }
         public int Index { get; set; }
         public Note Note { get; set; }
+
+        //конструктор для EF
+        protected Picture() { }
+
         public Picture(Note note, string path)
         {
             Id = Guid.NewGuid();

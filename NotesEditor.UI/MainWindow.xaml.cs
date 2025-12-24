@@ -20,19 +20,27 @@ namespace NotesEditor.UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly INoteRepository _repository = new NoteRepository();
-        private readonly ICategoryRepository _categoryRepository = new CategoryRepository();
-        private readonly IPictureRepository _pictureRepository = new PictureRepository();
-        private readonly ITextRepository _textRepository = new TextRepository();
-        private readonly IUserRepository _userRepository = new UserRepository();
+        private readonly INoteRepository _repository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IPictureRepository _pictureRepository;
+        private readonly ITextRepository _textRepository;
+        private readonly IUserRepository _userRepository;
 
         public List<Note> Items { get; set; }
         public Note? SelectedItem { get; set; }
-        public User _currentUser = new User { Id = Guid.NewGuid(), Username = "DemoUser" };
-        public MainWindow()
+        private User _currentUser;
+        public MainWindow(User user, IUserRepository userRepository, INoteRepository repository, ICategoryRepository categoryRepository,
+            IPictureRepository pictureRepository, ITextRepository textRepository)
         {
             InitializeComponent();
             DataContext = this;
+
+            _currentUser = user;
+            _userRepository = userRepository;
+            _repository = repository;
+            _categoryRepository = categoryRepository;
+            _pictureRepository = pictureRepository;
+            _textRepository = textRepository;
 
             UpdateMainList();
             UpdateCategoryComboBox();
@@ -46,6 +54,7 @@ namespace NotesEditor.UI
             {
                 UpdateMainList();
                 UpdateCategoryComboBox();
+                FiltrationCleaning();
             }
         }
 
@@ -58,6 +67,7 @@ namespace NotesEditor.UI
             {
                 UpdateMainList();
                 UpdateCategoryComboBox();
+                FiltrationCleaning();
             }
         }
 
@@ -127,7 +137,22 @@ namespace NotesEditor.UI
             viewWindow.Show();
         }
 
-        void UpdateMainList()
+        private void FiltrationCleaning()
+        {
+            var filter = new NoteFilter
+            {
+                UserId = _currentUser.Id,
+            };
+            var filteredNotes = _repository.GetAll(filter);
+
+            Items = new List<Note>(filteredNotes.OrderByDescending(n => n.CreationDate));
+            MainList.ItemsSource = Items;
+
+            FindNoteTextBox.Text = string.Empty;
+            CategoryFilterComboBox.SelectedIndex = 0;
+        }
+
+        private void UpdateMainList()
         {
             MainList.ItemsSource = null;
 
@@ -166,10 +191,11 @@ namespace NotesEditor.UI
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            var accountWindow = new AccountWindow(_currentUser, _userRepository);
+            var accountWindow = new AccountWindow(_currentUser, _userRepository, _repository, _categoryRepository, _pictureRepository, _textRepository);
 
             if (accountWindow.ShowDialog() == false)
             {
+                this.DialogResult = true;
                 this.Close();
             }
             else

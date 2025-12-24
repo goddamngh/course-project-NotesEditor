@@ -40,6 +40,11 @@ namespace NoteEditor.UI
         private readonly List<Text> _textComponents = new();
         private readonly List<Picture> _pictureComponents = new();
 
+
+
+        //public List<object> Components { get; private set; }
+
+
         public NoteEditWindow(User user, INoteRepository noteRepository, ICategoryRepository categoryRepository,
             IPictureRepository pictureRepository, ITextRepository textRepository)
         {
@@ -98,6 +103,8 @@ namespace NoteEditor.UI
             var sortedComponents = allComponents
                 .OrderBy(c => c is Text t ? t.Index : (c as Picture)?.Index)
                 .ToList();
+
+            //Components = sortedComponents;
 
             foreach (var component in sortedComponents)
             {

@@ -12,13 +12,16 @@ namespace NoteEditor.Domain
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsVip { get; set; }
-        public DateTime RegistrationDate { get; set; } 
+        public DateTime RegistrationDate { get; set; }
 
-        public User()
+        //конструктор для EF
+        protected User() { }
+
+        public User(string name, string password)
         {
             Id = Guid.NewGuid();
-            Username = string.Empty;
-            Password = "0";
+            Username = name;
+            Password = password;
             IsVip = false;
             RegistrationDate = DateTime.Now;
         }

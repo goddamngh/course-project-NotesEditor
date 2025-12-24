@@ -48,7 +48,7 @@ namespace NoteEditor.UI
             _currentCategory = category;
 
             MainTextBlock.Text = "Редактирование категории";
-            SaveButton.Content = "Сохранить изменения";
+            SaveButton.Content = "Сохранить";
 
             this.DataContext = _currentCategory;
 

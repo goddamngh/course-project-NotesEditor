@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         Title="NoteEditor.PaymentWindow"
         Style="{StaticResource StyleWindow}"
-        Height="428"
+        Height="478"
         Width="Auto">
 
     <Grid>
@@ -83,23 +83,18 @@
                      Margin="10"
                      BorderBrush="Black"
                      BorderThickness="1"
-                     Background="WhiteSmoke"
-                     ToolTip="Введите пароль от вашего аккаунта"/>
+                     Background="WhiteSmoke"/>
 
         <Button Grid.Row="6"
                 Grid.Column="1"
                 x:Name="CancelButton"
                 Content="Отмена"
-                Margin="5"
-                Padding="20,10"
                 Click="CancelButton_Click"/>
 
         <Button Grid.Row="6"
                 Grid.Column="0"
                 x:Name="PayButton"
                 Content="Оплатить"
-                Margin="5"
-                Padding="20,10"
                 Click="PayButton_Click"/>
 
     </Grid>

@@ -14,6 +14,9 @@ namespace NoteEditor.Domain
         public Color Color { get; set; }
         public User User { get; set; }
 
+        //конструктор для EF
+        protected Category() { }
+
         public Category(User user)
         {
             Id = Guid.NewGuid();
