@@ -35,7 +35,7 @@ namespace NoteEditor.UI
 
         private Note _currentNote;
         private readonly User _currentUser;
-        private readonly bool _isNewNote = true;
+        private readonly bool _isNewNote;
 
         private readonly List<Text> _textComponents = new();
         private readonly List<Picture> _pictureComponents = new();
@@ -56,9 +56,9 @@ namespace NoteEditor.UI
             _categoryRepository = categoryRepository;
 
             _currentUser = user;
-            _currentNote = new Note(_currentUser);
+            _currentNote = new Note(user);
             DataContext = _currentNote;
-
+            _isNewNote = true;
 
             UpdateCategoryUI();
 
@@ -74,6 +74,7 @@ namespace NoteEditor.UI
             _categoryRepository = categoryRepository;
 
             _currentNote = note;
+            _currentUser = _currentNote.User;
             _isNewNote = false;
             DataContext = _currentNote;
 
@@ -166,6 +167,7 @@ namespace NoteEditor.UI
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+
             int index = 0;
             foreach (UIElement child in ContentStackPanel.Children)
             {
@@ -188,6 +190,20 @@ namespace NoteEditor.UI
                     }
                     index++;
                 }
+            }
+
+            if (NoteNameTextBox.Text == "")
+                _currentNote.Name = null;
+            else
+                _currentNote.Name = NoteNameTextBox.Text;
+
+            if (_isNewNote)
+            {
+                _noteRepository.Add(_currentNote);
+            }
+            else
+            {
+                _noteRepository.Update(_currentNote);
             }
 
             foreach (var text in _textComponents)
@@ -214,19 +230,7 @@ namespace NoteEditor.UI
                 }
             }
 
-            if (NoteNameTextBox.Text == "")
-                _currentNote.Name = null;
-            else
-                _currentNote.Name = NoteNameTextBox.Text;
-
-            if (_isNewNote)
-            {
-                _noteRepository.Add(_currentNote);
-            }
-            else
-            {
-                _noteRepository.Update(_currentNote);
-            }
+            
 
             this.DialogResult = true;
             this.Close();
