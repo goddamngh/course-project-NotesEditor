@@ -41,10 +41,6 @@ namespace NoteEditor.UI
         private readonly List<Picture> _pictureComponents = new();
 
 
-
-        //public List<object> Components { get; private set; }
-
-
         public NoteEditWindow(User user, INoteRepository noteRepository, ICategoryRepository categoryRepository,
             IPictureRepository pictureRepository, ITextRepository textRepository)
         {
@@ -104,8 +100,6 @@ namespace NoteEditor.UI
             var sortedComponents = allComponents
                 .OrderBy(c => c is Text t ? t.Index : (c as Picture)?.Index)
                 .ToList();
-
-            //Components = sortedComponents;
 
             foreach (var component in sortedComponents)
             {
@@ -419,11 +413,6 @@ namespace NoteEditor.UI
             }
         }
 
-        /// <summary>
-        /// вспомогательный метод для поиска родительского элемента Border для заданного дочернего элемента
-        /// </summary>
-        /// <param name="child"></param>
-        /// <returns></returns>
         private Border FindParentBorder(DependencyObject child)
         {
             while (child != null && !(child is Border))
@@ -483,10 +472,6 @@ namespace NoteEditor.UI
             DeleteSelectedElButton.IsEnabled = false;
         }
 
-        /// <summary>
-        /// метод для удаления текстового элемента из заметки и интерфейса
-        /// </summary>
-        /// <param name="textBox"></param>
         private void DeleteTextElement(TextBox textBox)
         {
             if (textBox.Tag is Guid textId)
@@ -503,6 +488,7 @@ namespace NoteEditor.UI
                     if (text != null)
                     {
                         _textComponents.Remove(text);
+                        _textRepository.Delete(text);
                     }
 
                     ContentStackPanel.Children.Remove(textBox);
@@ -515,10 +501,6 @@ namespace NoteEditor.UI
             }
         }
 
-        /// <summary>
-        /// метод для удаления элемента изображения из заметки и интерфейса
-        /// </summary>
-        /// <param name="border"></param>
         private void DeletePictureElement(Border border)
         {
             if (border.Tag is Guid pictureId)
@@ -535,9 +517,11 @@ namespace NoteEditor.UI
                     if (picture != null)
                     {
                         _pictureComponents.Remove(picture);
+                        _pictureRepository.Delete(picture);
                     }
 
                     ContentStackPanel.Children.Remove(border);
+
 
                     UpdateComponentIndices();
 
@@ -547,9 +531,6 @@ namespace NoteEditor.UI
             }
         }
 
-        /// <summary>
-        /// метод для обновления индексов всех компонентов заметки после удаления элемента
-        /// </summary>
         private void UpdateComponentIndices()
         {
             int index = 0;
@@ -576,10 +557,6 @@ namespace NoteEditor.UI
             }
         }
 
-        /// <summary>
-        /// метод для выделения выбранного элемента в интерфейсе
-        /// </summary>
-        /// <param name="element"></param>
         private void HighlightSelectedElement(UIElement element)
         {
             ClearAllHighlights();
@@ -595,9 +572,6 @@ namespace NoteEditor.UI
             }
         }
 
-        /// <summary>
-        /// вспомогательный метод для снятия выделения со всех элементов в интерфейсе
-        /// </summary>
         private void ClearAllHighlights()
         {
             foreach (UIElement child in ContentStackPanel.Children)

@@ -35,17 +35,32 @@ namespace NoteEditor.UI
 
         private void PayButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(CardNumberTextBox.Text) ||
+                string.IsNullOrWhiteSpace(ExpiryDateTextBox.Text) ||
+                string.IsNullOrWhiteSpace(CvvTextBox.Text))
+            {
+                MessageBox.Show("Пожалуйста, заполните все данные карты.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!ExpiryDateTextBox.Text.Contains("/"))
+            {
+                MessageBox.Show("Введите срок действия в формате ММ/ГГ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (_currentUser.Password == PasswordBox.Password)
             {
                 _currentUser.IsVip = true;
+                MessageBox.Show("Оплата прошла успешно! Вам открыт безлимитный доступ.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;
                 this.Close();
             }
             else
             {
                 MessageBox.Show(
-                    "Неверный пароль. Пожалуйста, попробуйте снова.",
-                    "Ошибка оплаты",
+                    "Неверный пароль от аккаунта. Пожалуйста, попробуйте снова.",
+                    "Ошибка безопасности",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error
                 );

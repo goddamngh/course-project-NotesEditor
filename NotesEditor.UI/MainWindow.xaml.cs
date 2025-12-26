@@ -48,13 +48,30 @@ namespace NotesEditor.UI
 
         private void AddNoteButton_Click(object sender, RoutedEventArgs e)
         {
-            var editWindow = new NoteEditWindow(_currentUser, _repository, _categoryRepository, _pictureRepository, _textRepository);
-
-            if (editWindow.ShowDialog() == true)
+            var filterOnlyUser = new NoteFilter
             {
-                UpdateMainList();
-                UpdateCategoryComboBox();
-                FiltrationCleaning();
+                UserId = _currentUser.Id
+            };
+            if (_currentUser.IsVip == false && _repository.GetAll(filterOnlyUser).Count() >= 10)
+            {
+                MessageBox.Show(
+                        "Вы достигли лимита бесплатных заметок (10 шт.)\n\n" +
+                        "Для создания большего количества заметок необходимо оформить VIP-подписку.\n" +
+                        "Оплатите подписку в разделе 'Аккаунт'.",
+                        "Ограничение бесплатной версии",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+            }
+            else
+            {
+                var editWindow = new NoteEditWindow(_currentUser, _repository, _categoryRepository, _pictureRepository, _textRepository);
+
+                if (editWindow.ShowDialog() == true)
+                {
+                    UpdateMainList();
+                    UpdateCategoryComboBox();
+                    FiltrationCleaning();
+                }
             }
         }
 
@@ -168,25 +185,6 @@ namespace NotesEditor.UI
             Items = new List<Note>(filteredNotes.OrderByDescending(n => n.CreationDate));
             MainList.ItemsSource = Items;
 
-
-
-            var filterOnlyUser = new NoteFilter
-            {
-                UserId = _currentUser.Id
-            };
-            if (_currentUser.IsVip == false && _repository.GetAll(filterOnlyUser).Count() >= 10)
-            {
-                AddNoteButton.IsEnabled = false;
-                MessageBox.Show(
-                        "Вы достигли лимита бесплатных заметок (10 шт.)\n\n" +
-                        "Для создания большего количества заметок необходимо оформить VIP-подписку.\n" +
-                        "Оплатите подписку в разделе 'Аккаунт'.",
-                        "Ограничение бесплатной версии",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-            }
-            else
-                AddNoteButton.IsEnabled = true;
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)

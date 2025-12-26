@@ -52,10 +52,5 @@ namespace NotesEditor.Data.SqlServer
 
             _context.SaveChanges();
         }
-
-        public TEntity? GetById(Guid id)
-        {
-            return _dbSet.Find(id);
-        }
     }
 }

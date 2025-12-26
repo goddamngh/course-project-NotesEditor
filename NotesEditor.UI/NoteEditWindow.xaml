@@ -119,25 +119,5 @@
                         Margin="10">
             </StackPanel>
         </ScrollViewer>
-
-        <!--<ScrollViewer Grid.Row="2" 
-              VerticalScrollBarVisibility="Auto">
-            <ListBox ItemsSource="{Binding Components}">
-                <DataTemplate DataType="{x:Type domain:Text}">
-                    <TextBox
-                        Text="{Binding Content}"
-                        AcceptsReturn="true"
-                        TextWrapping="Wrap"
-                    />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type domain:Picture}">
-                    <TextBox
-                        Text="{Binding Content}"
-                        AcceptsReturn="true"
-                        TextWrapping="Wrap"
-                    />
-                </DataTemplate>
-            </ListBox>
-        </ScrollViewer>-->
     </Grid>
 </Window>
