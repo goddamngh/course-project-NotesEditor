@@ -40,6 +40,8 @@ namespace NoteEditor.UI
         private readonly List<Text> _textComponents = new();
         private readonly List<Picture> _pictureComponents = new();
 
+        private readonly Category? oldCategory;
+        private readonly string? oldName;
 
         public NoteEditWindow(User user, INoteRepository noteRepository, ICategoryRepository categoryRepository,
             IPictureRepository pictureRepository, ITextRepository textRepository)
@@ -55,6 +57,8 @@ namespace NoteEditor.UI
             _currentNote = new Note(user);
             DataContext = _currentNote;
             _isNewNote = true;
+            oldCategory = _currentNote.Category;
+            oldName = _currentNote.Name;
 
             UpdateCategoryUI();
 
@@ -73,6 +77,8 @@ namespace NoteEditor.UI
             _currentUser = _currentNote.User;
             _isNewNote = false;
             DataContext = _currentNote;
+            oldCategory = _currentNote.Category;
+            oldName = _currentNote.Name;
 
             UpdateCategoryUI();
 
@@ -239,9 +245,13 @@ namespace NoteEditor.UI
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning
             );
+            
 
             if (result == MessageBoxResult.Yes)
             {
+                _currentNote.Category = oldCategory;
+                _currentNote.Name = oldName;
+
                 this.DialogResult = false;
                 this.Close();
             }
@@ -426,10 +436,9 @@ namespace NoteEditor.UI
         {
             var choiceCategoryWindow = new ChoiceCategoryWindow(_currentNote, _categoryRepository, _noteRepository);
 
-            if (choiceCategoryWindow.ShowDialog() == true)
-            {
-                UpdateCategoryUI();
-            }
+            choiceCategoryWindow.ShowDialog();
+
+            UpdateCategoryUI();
         }
 
         private void UpdateCategoryUI()

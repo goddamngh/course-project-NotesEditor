@@ -68,11 +68,13 @@ namespace NotesEditor.UI
 
                 if (editWindow.ShowDialog() == true)
                 {
-                    UpdateMainList();
-                    UpdateCategoryComboBox();
                     FiltrationCleaning();
                 }
+
+                UpdateMainList();
+                UpdateCategoryComboBox();
             }
+
         }
 
         private void ChangeNoteButton_Click(object sender, RoutedEventArgs e)
@@ -82,10 +84,11 @@ namespace NotesEditor.UI
 
             if (editWindow.ShowDialog() == true)
             {
-                UpdateMainList();
-                UpdateCategoryComboBox();
                 FiltrationCleaning();
             }
+
+            UpdateMainList();
+            UpdateCategoryComboBox();
         }
 
         private void DeleteNoteButton_Click(object sender, RoutedEventArgs e)

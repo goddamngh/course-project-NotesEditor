@@ -51,7 +51,7 @@
                    VerticalAlignment="Center"/>
             <TextBox Grid.Column="1"
                  x:Name="CategoryNameTextBox"
-                 Text="{Binding Name}"
+                 Text="{Binding Name, Mode=OneTime}"
                  TextChanged="CategoryNameTextBox_TextChanged"
                  TextWrapping="Wrap"/>
 

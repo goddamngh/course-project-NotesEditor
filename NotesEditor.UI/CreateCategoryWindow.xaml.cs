@@ -63,12 +63,7 @@ namespace NoteEditor.UI
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(_currentCategory.Name))
-            {
-                MessageBox.Show("Введите название категории.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                CategoryNameTextBox.Focus();
-                return;
-            }
+            _currentCategory.Name = CategoryNameTextBox.Text;
 
             bool isExisting = _categoryRepository.GetAll()
                     .Any(c => c.Id == _currentCategory.Id && c.User.Id == _currentUser.Id);
